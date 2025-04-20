@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Person</title>
+</head>
+<body>
+
+<p th:text="${person.getFio()} + ', '+${person.getYear()}">value</p>
+
+<!-- if person have book -->
+<div th:if="${personsBooks.isEmpty()}">
+    <p>Человек пока не взял ни одной книги</p>
+</div>
+<!-- else -->
+<div th:unless="${personsBooks.isEmpty()}">
+
+    <hr/>
+    <a>Книги:</a>
+    <div th:each="book : ${personsBooks}">
+        <a th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}">book</a>
+    </div>
+</div>
+
+<hr/>
+
+<form th:method="GET" th:action="@{/people/{id}/edit(id=${person.getPerson_id()})}">
+    <input type="submit" value="Редактировать"/>
+</form>
+
+<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getPerson_id()})}">
+    <input type="submit" value="Удалить"/>
+</form>
+
+</body>
+</html>
